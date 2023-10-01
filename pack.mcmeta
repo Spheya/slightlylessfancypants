@@ -1,6 +1,6 @@
 ﻿{
     "pack": {
-        "pack_format": 13,
-        "description": "but less fancy"
+        "pack_format": 15,
+        "description": "but *slightly* less fancy"
     }
 }

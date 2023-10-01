@@ -1,14 +1,17 @@
-# pants, but less fancy
+# pants, but slightly less fancy
 
-[fancypants](https://github.com/Ancientkingg/fancyPants) is kinda really inefficent and unoptimized
+[fancypants](https://github.com/Ancientkingg/fancyPants) is slow
 
-less fancy pants is many many times faster and also easier to use
+[lessfancypants](https://github.com/Godlander/lessfancypants) is less
 
-the only thing it doesnt have is automatically animating armor, but you can still animate by just changing the color
+so here i present to you, *slightly\* less fancy pants
+
+(it's lessfancypants but with features from fancypants)
 
 ## usage:
 
-just stack the armor texture downwards
+look at [fancypants'](https://github.com/Ancientkingg/fancyPants) guide, basically everything is the same except for the notable differences that
+**you cannot assign a custom dye colour to the armour set**, also the texture resolution is set in the config file at `assets\minecraft\shaders\include\slightlylessfancypants_config.glsl`
 
 the integer display color determines which texture to use, starting from 0
 
@@ -22,16 +25,18 @@ when the glowing effect is applied, the first custom armor texture is what glowi
 
 ## performance:
 
-texture reading is a fairly expensive operation in shaders
+read [lessfancypants'](https://github.com/Godlander/lessfancypants) readme file on why this is better
 
-original fancypants does all the calculation in the fragment shader for some reason, which means everything is calculated for every single pixel of armor on the screen
+because this adds a few features from fancypants, this is slower than lessfancypants, but should be more performant than fancypants
 
-it also uses a `for` loop that reads the texture `O(N)` times where `N` is the amount of custom armors
+## feature comparison:
 
-the compiler will usually optimize loops if they run a predictable number of times, but since this loop's run time is dependent on the result of the texture read, that will not be possible
-
-in comparison, less fancy pants does not read the texture color at all for the calculations
-
-the calculations are all done in the vertex shader, which runs once per geometry vertex instead of per pixel on screen
-
-there are also no loops, the shader program runs in constant time with respect to the amount of custom armors
+|  | lessfancypants | slightlylessfancypants | fancypants |
+|---|---|---|---|
+| performance | fast | medium | slow |
+| custom dye colours |  |  | x |
+| option to enable dye tint |  |  | x |
+| animations |  | x | x |
+| emissivity |  | x | x |
+| custom armour sets | x | x | x |
+| properly handles vanilla leather overlay |  | x |  |
