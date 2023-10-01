@@ -59,7 +59,7 @@ void main() {
 
     if (texSize.y != armorSize.y) {
         // weird texture size, must be our leather armor texture
-        ivec2 armorsetPos = ivec2((toInt(Color.rgb) + 1) * armorSize.x, 0);
+        ivec2 armorsetPos = ivec2(toInt(Color.rgb) * armorSize.x, 0);
 
         if (armorsetPos.x < texSize.x) {
             // custom armor
