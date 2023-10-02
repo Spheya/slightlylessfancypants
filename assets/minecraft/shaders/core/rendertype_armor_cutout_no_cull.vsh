@@ -57,7 +57,7 @@ void main() {
     frameProgress = 0.0;
     overlayUv = emissiveUv = interpolationUv = vec2(-1.0);
 
-    if (texSize.y != armorSize.y) {
+    if (texSize.y != armorSize.y && texSize.y < 1024) {
         // weird texture size, must be our leather armor texture
         ivec2 armorsetPos = ivec2(toInt(Color.rgb) * armorSize.x, 0);
 
