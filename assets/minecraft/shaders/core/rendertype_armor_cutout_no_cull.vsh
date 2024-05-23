@@ -1,7 +1,6 @@
 #version 150
 
 #moj_import <light.glsl>
-#moj_import <fog.glsl>
 #moj_import <slightlylessfancypants_config.glsl>
 
 in vec3 Position;
@@ -35,14 +34,25 @@ out vec2 interpolationEmissiveUv;
 out float frameProgress;
 
 int toInt(vec3 c) {
-    ivec3 v = ivec3(round(c*255.0));
+    ivec3 v = ivec3(c*255.5);
     return (v.r<<16)+(v.g<<8)+v.b;
+}
+
+// put fog in here for 1.20.4 compatibility 
+float fog_distance(vec3 pos, int shape) {
+    if (shape == 0) {
+        return length(pos);
+    } else {
+        float distXZ = length(pos.xz);
+        float distY = abs(pos.y);
+        return max(distXZ, distY);
+    }
 }
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
-    vertexDistance = fog_distance(ModelViewMat, Position, FogShape);
+    vertexDistance = fog_distance(Position, FogShape);
     lightColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, vec4(1.0)) * texelFetch(Sampler2, UV2 / 16, 0);
     dyeColor = Color;
     texCoord0 = UV0;
