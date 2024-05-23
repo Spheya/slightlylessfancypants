@@ -10,17 +10,17 @@ uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
 
 out vec4 vertexColor;
-out vec2 uv;
+out vec2 texCoord0;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
     vertexColor = Color;
-    uv = UV0;
+    texCoord0 = UV0;
 
-    //we assume if y >= 2x it is an armor and divide uv
+    //we assume if x >= 2y it is an armor and divide uv
     //cannot pass tint color here so it's the only option
     vec2 size = textureSize(Sampler0, 0);
-    if (size.y >= 2*size.x && size.x < 256) {
-        uv.y /= 2.*size.y/size.x;
+    if (size.x >= 2*size.y && size.y < 1024) {
+        texCoord0 *= vec2(64.0, 32.0) / size;
     }
 }
